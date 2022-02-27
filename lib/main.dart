@@ -21,6 +21,7 @@ class App extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'WorkSans',
       ),
       debugShowCheckedModeBanner: false,
       home: const HomePage(title: 'Flutter Demo Home Page'),
