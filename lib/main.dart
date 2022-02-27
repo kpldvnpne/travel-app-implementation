@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -78,6 +77,8 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.only(left: horizontalPadding),
               child: Locations(),
             ),
+            const SizedBox(height: 34),
+            const BestDestination(padding: horizontalPadding),
           ],
         ),
       ),
@@ -249,6 +250,163 @@ class Location extends StatelessWidget {
               height: 3,
               color: themeColor,
             )
+        ],
+      ),
+    );
+  }
+}
+
+class BestDestination extends StatelessWidget {
+  final double padding;
+
+  const BestDestination({Key? key, required this.padding}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: padding),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              Text(
+                'Best Destination',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              Text(
+                'View All',
+                style: TextStyle(
+                  color: greyColor,
+                  fontSize: 13,
+                  fontWeight: FontWeight.normal,
+                ),
+              )
+            ],
+          ),
+        ),
+        const SizedBox(height: 25),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: padding),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: const [
+                BestDestinationCard(
+                  name: 'Bulkit Raya',
+                  location: 'Indonesia, Bali',
+                  rating: 4.8,
+                ),
+                BestDestinationCard(
+                  name: 'Gunung Anung',
+                  location: 'Indonesia Bali',
+                  rating: 3.5,
+                )
+              ],
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class BestDestinationCard extends StatelessWidget {
+  final String name;
+  final String location;
+  final double rating;
+
+  const BestDestinationCard(
+      {Key? key,
+      required this.name,
+      required this.location,
+      required this.rating})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 200,
+      height: 210,
+      decoration: BoxDecoration(
+        color: whiteColor,
+        borderRadius: BorderRadius.circular(9),
+      ),
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        children: [
+          Container(
+            width: 184,
+            height: 134,
+            decoration: BoxDecoration(
+              color: themeColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 7),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.location_pin,
+                        size: 16,
+                        color: greyColor,
+                      ),
+                      Text(
+                        location,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: greyColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: themeColor3,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.star,
+                      color: themeColor,
+                      size: 16,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      rating.toStringAsFixed(1),
+                      style: const TextStyle(
+                        color: themeColor,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
