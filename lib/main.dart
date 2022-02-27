@@ -58,9 +58,9 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Column(
           children: [
+            const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: 8.0,
                 horizontal: horizontalPadding,
               ),
               child: Column(
@@ -79,6 +79,10 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 34),
             const BestDestination(padding: horizontalPadding),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+              child: Recommended(),
+            )
           ],
         ),
       ),
@@ -204,25 +208,25 @@ class Locations extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: const [
-          Location(
+          LocationsItem(
             name: 'Bali',
             isActive: true,
           ),
-          Location(name: 'Jakarta'),
-          Location(name: 'Bandung'),
-          Location(name: 'Surabay'),
-          Location(name: 'Malta'),
+          LocationsItem(name: 'Jakarta'),
+          LocationsItem(name: 'Bandung'),
+          LocationsItem(name: 'Surabay'),
+          LocationsItem(name: 'Malta'),
         ],
       ),
     );
   }
 }
 
-class Location extends StatelessWidget {
+class LocationsItem extends StatelessWidget {
   final String name;
   final bool isActive;
 
-  const Location({
+  const LocationsItem({
     Key? key,
     required this.name,
     this.isActive = false,
@@ -267,26 +271,7 @@ class BestDestination extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: padding),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text(
-                'Best Destination',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-              Text(
-                'View All',
-                style: TextStyle(
-                  color: greyColor,
-                  fontSize: 13,
-                  fontWeight: FontWeight.normal,
-                ),
-              )
-            ],
-          ),
+          child: const SectionTitle('Best Destination'),
         ),
         const SizedBox(height: 25),
         SingleChildScrollView(
@@ -308,6 +293,36 @@ class BestDestination extends StatelessWidget {
                 )
               ],
             ),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class SectionTitle extends StatelessWidget {
+  final String title;
+
+  const SectionTitle(this.title, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        const Text(
+          'View All',
+          style: TextStyle(
+            color: greyColor,
+            fontSize: 13,
+            fontWeight: FontWeight.normal,
           ),
         )
       ],
@@ -347,7 +362,7 @@ class BestDestinationCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -356,29 +371,13 @@ class BestDestinationCard extends StatelessWidget {
                 children: [
                   Text(
                     name,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                   const SizedBox(height: 7),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.location_pin,
-                        size: 16,
-                        color: greyColor,
-                      ),
-                      Text(
-                        location,
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: greyColor,
-                        ),
-                      ),
-                    ],
-                  ),
+                  Location(location),
                 ],
               ),
               Container(
@@ -409,6 +408,137 @@ class BestDestinationCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class Location extends StatelessWidget {
+  const Location(
+    this.location, {
+    Key? key,
+  }) : super(key: key);
+
+  final String location;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Icon(
+          Icons.location_pin,
+          size: 16,
+          color: greyColor,
+        ),
+        Text(
+          location,
+          style: const TextStyle(
+            fontSize: 11,
+            color: greyColor,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class Recommended extends StatelessWidget {
+  const Recommended({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SectionTitle('Recommended'),
+        const SizedBox(height: 20),
+        Container(
+          decoration: BoxDecoration(
+            color: whiteColor,
+            borderRadius: BorderRadius.circular(13),
+          ),
+          padding: const EdgeInsets.all(7),
+          child: Row(
+            children: [
+              Container(
+                width: 65,
+                height: 60,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: themeColor2,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Text(
+                          '12 km',
+                          style: TextStyle(
+                            color: greyColor,
+                            fontSize: 10,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: CircleAvatar(
+                            radius: 3,
+                            backgroundColor: greyColor,
+                          ),
+                        ),
+                        Text(
+                          '1 h 30 min',
+                          style: TextStyle(
+                            color: greyColor,
+                            fontSize: 10,
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 7),
+                    const Text(
+                      'Pantal Nusa Penida',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14,
+                      ),
+                    ),
+                    const SizedBox(height: 7),
+                    const Location('Indonesia, Bali'),
+                  ],
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 5,
+                      horizontal: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: themeColor,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: const Text(
+                      '\$20',
+                      style: TextStyle(
+                        color: whiteColor,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
