@@ -53,21 +53,32 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    const horizontalPadding = 20.0;
     return Scaffold(
       backgroundColor: backGroundColor,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: const <Widget>[
-              Header(),
-              SizedBox(height: 40),
-              Search(),
-              SizedBox(height: 30),
-              Locations(),
-            ],
-          ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 8.0,
+                horizontal: horizontalPadding,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const <Widget>[
+                  Header(),
+                  SizedBox(height: 40),
+                  Search(),
+                ],
+              ),
+            ),
+            const SizedBox(height: 30),
+            const Padding(
+              padding: EdgeInsets.only(left: horizontalPadding),
+              child: Locations(),
+            ),
+          ],
         ),
       ),
     );
