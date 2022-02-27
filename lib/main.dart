@@ -64,6 +64,8 @@ class _HomePageState extends State<HomePage> {
               Header(),
               SizedBox(height: 40),
               Search(),
+              SizedBox(height: 30),
+              Locations(),
             ],
           ),
         ),
@@ -174,6 +176,68 @@ class Search extends StatelessWidget {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class Locations extends StatelessWidget {
+  const Locations({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const [
+          Location(
+            name: 'Bali',
+            isActive: true,
+          ),
+          Location(name: 'Jakarta'),
+          Location(name: 'Bandung'),
+          Location(name: 'Surabay'),
+          Location(name: 'Malta'),
+        ],
+      ),
+    );
+  }
+}
+
+class Location extends StatelessWidget {
+  final String name;
+  final bool isActive;
+
+  const Location({
+    Key? key,
+    required this.name,
+    this.isActive = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 30.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            name,
+            style: TextStyle(
+              color: isActive ? themeColor : greyColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          const SizedBox(height: 5),
+          if (isActive)
+            Container(
+              width: 17,
+              height: 3,
+              color: themeColor,
+            )
         ],
       ),
     );
