@@ -7,6 +7,7 @@ const themeColor2 = Color(0xFFFFE3AB);
 const themeColor3 = Color(0xFFFEF7F0);
 const backGroundColor = Color(0xFFFCFCFC);
 const greyColor = Color(0xFFD1A5A5);
+const whiteColor = Color(0xFFFFFFFF);
 
 void main() {
   runApp(const App());
@@ -61,6 +62,8 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: const <Widget>[
               Header(),
+              SizedBox(height: 40),
+              Search(),
             ],
           ),
         ),
@@ -129,6 +132,50 @@ class Header extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class Search extends StatelessWidget {
+  const Search({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 60,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(38),
+        color: whiteColor,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const [
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(left: 26),
+              child: Text(
+                'Search for places...',
+                style: TextStyle(
+                  color: greyColor,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: CircleAvatar(
+              backgroundColor: themeColor,
+              child: Icon(
+                Icons.search,
+                color: whiteColor,
+                size: 20,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
